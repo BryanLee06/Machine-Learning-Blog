@@ -1,0 +1,15 @@
+---
+title: "About"
+author: "Bryan Lee"
+about:
+  template: jolla
+  links:
+    - icon: github
+      text: Github
+      href: https://github.com/BryanLee06
+title-block-banner: img/data_science_banner.jpg
+---
+# Introduction to Machine Learning
+## What is Data Science?
+
+Machine Learning (ML) is a subset of Artificial Intelligence (AI) that allows computers to learn from data and improve their performance over time without being explicitly programmed. It has become an essential part of modern technology, enabling applications ranging from spam filtering to self-driving cars, and everything in between. The vast potential of machine learning to analyze data, identify patterns, and make decisions has sparked significant interest and growth in the field.

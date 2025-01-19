@@ -1,0 +1,93 @@
+---
+title: "XGBoost vs. LightGBM - Which One is Better?"
+author: "Bryan Lee"
+date: "2025-01-18"
+categories: [news, code, data science]
+image: "lgb_vs_xgb.jpeg"
+---
+
+XGBoost is a well-known term in the data science industry, and it's currently the talk of the town. Anyone who's dabbled in data science has likely heard of it, as it's often regarded as one of the best out-of-the-box models for a wide range of tasks. However, as you dive deeper into the field and explore more ensemble methods, the conversation starts to shift. Suddenly, LightGBM takes center stage. Those who have done some research or tested their own ensemble models begin to praise LightGBM for its performance. Now, it seems that everyone "in the know" is discussing LightGBM and its superiority over XGBoost.
+
+So this leads to the question
+
+## What is XGBoost or Light GBM
+
+To answer this question, we should first start with the topic of ensemble models. Ensemble models are a type of machine learning technique where you combine multiple individual models to make one stronger, more accurate prediction. The idea is that by combining the strengths of several models, the final result is often better than using just one model on its own.
+
+![Simple Diagram explaining the boosting process](gradient_boosting.jpg)
+
+For example, imagine you're trying to make a decision, and you ask a group of friends for their opinions. Some friends might be good at certain types of questions, and others might be better at different ones. If you take everyone's opinion into account, you'll likely make a better decision than if you only ask one person. This is how ensemble models work, but rather than asking people you are asking multiple machine learning models and taking the best results from each one and combining them. This is how XGBoost and LightGBM work, they are both ensemble techniques called boosting methods.
+
+
+### How does XGBoost Work?
+
+XGBoost (Extreme Gradient Boosting) is a powerful machine learning algorithm that belongs to the family of ensemble methods and uses boosting to improve model accuracy. XGBoost is an ensemble learning technique, which means it combines multiple models to make predictions. In particular, XGBoost is a type of boosting method, where models (usually decision trees) are trained sequentially, one after the other.
+
+![XG Boost](xgb.jpg)
+
+Boosting works by focusing on the mistakes made by previous models. Here’s how the boosting process works step-by-step:
+
+1. Start with a simple model: XGBoost begins with a simple decision tree, which makes its first predictions.
+
+2. Find the mistakes: After the first model makes predictions, XGBoost looks at where it went wrong (these are the errors or mistakes).
+
+3. Fix the mistakes: XGBoost then builds a second decision tree that focuses on correcting the mistakes made by the first model.
+
+4. Add up all the models: The predictions of all the models are combined to make the final result. Each new tree helps improve the prediction made by the previous ones.
+
+5. Repeat the process: This process continues, with more and more trees being added to fix the mistakes and improve the prediction.
+
+By combining all these models, XGBoost is able to make very accurate predictions. It also includes special techniques to prevent overfitting (where the model becomes too complex and performs poorly on new data).
+
+In short, XGBoost works like building a team of experts, where each new expert tries to fix what the previous ones got wrong, leading to a very strong final model.
+
+### How does Light GBM Work?
+
+LightGBM (Light Gradient Boosting Machine) is a machine learning algorithm designed to help make predictions. Like XGBoost, it’s a boosting algorithm, which means it builds a series of smaller models and combines them to make a strong prediction.
+
+![Light GBM](lgbm.jpg)
+
+Here's a simple breakdown of how it works:
+
+1. Start with a simple model: Just like XGBoost, LightGBM begins with a basic decision tree that makes its first predictions.
+
+2. Focus on the mistakes: After the first model makes predictions, LightGBM looks at the mistakes it made (where it was wrong) and tries to improve on those errors.
+
+3. Build more trees: Instead of building each new tree from scratch like other methods, LightGBM uses a clever technique called gradient boosting using leaf-wise tree growth to make the next tree focus specifically on fixing the errors. It builds trees one after another, but each tree focuses on the mistakes made by the previous one.
+
+4. Speed and efficiency: What makes LightGBM special is how fast and efficient it is. It’s designed to work well even with large datasets. It achieves this by grouping similar data together (using a technique called histogram-based learning) to speed up the process. This helps LightGBM train faster compared to other algorithms like XGBoost.
+
+5. Final prediction: Once several trees have been built, LightGBM combines their predictions to make the final, more accurate prediction.
+
+6. Prevents overfitting: LightGBM also includes techniques that help prevent the model from becoming too complex (this is called regularization), ensuring it works well on new, unseen data.
+
+LightGBM works by building a series of decision trees, where each new tree tries to correct the mistakes of the previous one. It’s designed to be fast and efficient, making it great for large datasets. The final prediction is a combination of all the trees' outputs, and the algorithm also includes ways to prevent overfitting (making sure the model doesn't become too complicated and perform poorly on new data).
+
+## What's the difference between XGBoost and Light GBM? 
+
+![Leaf-wise tree growth vs. Level-wise tree growth](Leaf_vs_level.jpg)
+
+LightGBM and XGBoost are both popular gradient boosting machine learning methods used to make predictions, often in tasks like classification or regression. Like other ensemble methods they both work by combining many weak models to create a stronger one.
+
+The main difference between them is in how they work behind the scenes:
+
+- LightGBM is designed to be faster and more efficient, especially when working with large datasets. It handles large amounts of data and many features better because it uses a technique that splits data differently (called "leaf-wise" growth). This makes it generally faster at training but sometimes slightly more prone to overfitting.
+
+- XGBoost is known for being highly accurate and reliable. It uses a "level-wise" approach for growing decision trees, which is simpler and can sometimes be more stable than LightGBM’s method. While it might not be as fast as LightGBM, it is widely used in competitions and practical applications for its consistent performance.
+
+![XG Boost vs. Light GBM](lgb_Vs_xgboost_meme.jpg)
+
+## So which is better? Light GBM or XG Boost
+
+LightGBM is faster and more scalable, making it ideal for huge datasets, while XGBoost is often the go-to for strong, reliable performance. Both are excellent tools, but the choice depends on the specific problem and data at hand.
+
+
+There isn’t a clear-cut answer to which one is better, as it depends on the specific problem you're tackling. Both LightGBM and XGBoost are powerful and widely used, but they have strengths in different areas. LightGBM might be better if speed and scalability are your top priorities, while XGBoost might be the better choice if you need a more reliable model that balances speed with accuracy. The best approach is often to try both and see which one performs better for your specific dataset.
+
+
+
+
+
+
+
+
