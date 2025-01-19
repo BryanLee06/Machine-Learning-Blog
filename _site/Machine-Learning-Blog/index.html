@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Bryan Lee">
-<meta name="dcterms.date" content="2025-01-18">
 
-<title>XGBoost vs.&nbsp;LightGBM - Which One is Better? – Machine Learning Blog</title>
+<title>Machine Learning Blog</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -25,22 +23,24 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../">
-<script src="../../site_libs/quarto-html/quarto.js"></script>
-<script src="../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-listing/list.min.js"></script>
+<script src="../site_libs/quarto-listing/quarto-listing.js"></script>
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -68,19 +68,77 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script>
 
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-listing .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
 
-<link rel="stylesheet" href="../../styles.css">
+    const options = {
+      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      
+      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
 </head>
 
-<body class="nav-fixed fullcontent">
+<body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top quarto-banner">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../../index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Machine Learning Blog</span>
     </a>
   </div>
@@ -91,7 +149,7 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../about.html"> 
+    <a class="nav-link" href="../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
@@ -114,131 +172,83 @@ ul.task-list li input[type="checkbox"] {
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-body">
-      <h1 class="title">XGBoost vs.&nbsp;LightGBM - Which One is Better?</h1>
-                                <div class="quarto-categories">
-                <div class="quarto-category">news</div>
-                <div class="quarto-category">code</div>
-                <div class="quarto-category">data science</div>
-              </div>
-                  </div>
+    <div class="quarto-title column-page-left">
+      <h1 class="title">Machine Learning Blog</h1>
+                      </div>
   </div>
     
   
-  <div class="quarto-title-meta">
+  <div class="quarto-title-meta column-page-left">
 
-      <div>
-      <div class="quarto-title-meta-heading">Author</div>
-      <div class="quarto-title-meta-contents">
-               <p>Bryan Lee </p>
-            </div>
-    </div>
       
-      <div>
-      <div class="quarto-title-meta-heading">Published</div>
-      <div class="quarto-title-meta-contents">
-        <p class="date">January 18, 2025</p>
-      </div>
-    </div>
     
       
     </div>
     
   
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(1)</span></div><div class="category" data-category="code">code <span class="quarto-category-count">(1)</span></div><div class="category" data-category="data science">data science <span class="quarto-category-count">(1)</span></div><div class="category" data-category="news">news <span class="quarto-category-count">(1)</span></div></div></div>
 <!-- main -->
-<main class="content quarto-banner-title-block" id="quarto-document-content">
+<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
 
 
 
 
 
-<p>XGBoost is a well-known term in the data science industry, and it’s currently the talk of the town. Anyone who’s dabbled in data science has likely heard of it, as it’s often regarded as one of the best out-of-the-box models for a wide range of tasks. However, as you dive deeper into the field and explore more ensemble methods, the conversation starts to shift. Suddenly, LightGBM takes center stage. Those who have done some research or tested their own ensemble models begin to praise LightGBM for its performance. Now, it seems that everyone “in the know” is discussing LightGBM and its superiority over XGBoost.</p>
-<p>So this leads to the question</p>
-<section id="what-is-xgboost-or-light-gbm" class="level2">
-<h2 class="anchored" data-anchor-id="what-is-xgboost-or-light-gbm">What is XGBoost or Light GBM</h2>
-<p>To answer this question, we should first start with the topic of ensemble models. Ensemble models are a type of machine learning technique where you combine multiple individual models to make one stronger, more accurate prediction. The idea is that by combining the strengths of several models, the final result is often better than using just one model on its own.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="gradient_boosting.jpg" class="img-fluid figure-img"></p>
-<figcaption>Simple Diagram explaining the boosting process</figcaption>
-</figure>
+
+
+
+
+<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
+<div class="list quarto-listing-default">
+<div class="quarto-post image-right" data-index="0" data-categories="news,code,data science" data-listing-date-sort="1737187200000" data-listing-file-modified-sort="1737251038315" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1149">
+<div class="thumbnail">
+<p><a href="../Machine-Learning-Blog/posts/XGBoost_vs_LightGBM/index.html" class="no-external"></a></p><a href="../Machine-Learning-Blog/posts/XGBoost_vs_LightGBM/index.html" class="no-external">
+<p><img loading="lazy" src="../Machine-Learning-Blog/posts/XGBoost_vs_LightGBM/lgb_vs_xgb.jpeg" class="thumbnail-image"></p>
+</a><p><a href="../Machine-Learning-Blog/posts/XGBoost_vs_LightGBM/index.html" class="no-external"></a></p>
 </div>
-<p>For example, imagine you’re trying to make a decision, and you ask a group of friends for their opinions. Some friends might be good at certain types of questions, and others might be better at different ones. If you take everyone’s opinion into account, you’ll likely make a better decision than if you only ask one person. This is how ensemble models work, but rather than asking people you are asking multiple machine learning models and taking the best results from each one and combining them. This is how XGBoost and LightGBM work, they are both ensemble techniques called boosting methods.</p>
-<section id="how-does-xgboost-work" class="level3">
-<h3 class="anchored" data-anchor-id="how-does-xgboost-work">How does XGBoost Work?</h3>
-<p>XGBoost (Extreme Gradient Boosting) is a powerful machine learning algorithm that belongs to the family of ensemble methods and uses boosting to improve model accuracy. XGBoost is an ensemble learning technique, which means it combines multiple models to make predictions. In particular, XGBoost is a type of boosting method, where models (usually decision trees) are trained sequentially, one after the other.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="xgb.jpg" class="img-fluid figure-img"></p>
-<figcaption>XG Boost</figcaption>
-</figure>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../Machine-Learning-Blog/posts/XGBoost_vs_LightGBM/index.html" class="no-external">XGBoost vs.&nbsp;LightGBM - Which One is Better?</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../Machine-Learning-Blog/posts/XGBoost_vs_LightGBM/index.html" class="no-external"></a>
 </div>
-<p>Boosting works by focusing on the mistakes made by previous models. Here’s how the boosting process works step-by-step:</p>
-<ol type="1">
-<li><p>Start with a simple model: XGBoost begins with a simple decision tree, which makes its first predictions.</p></li>
-<li><p>Find the mistakes: After the first model makes predictions, XGBoost looks at where it went wrong (these are the errors or mistakes).</p></li>
-<li><p>Fix the mistakes: XGBoost then builds a second decision tree that focuses on correcting the mistakes made by the first model.</p></li>
-<li><p>Add up all the models: The predictions of all the models are combined to make the final result. Each new tree helps improve the prediction made by the previous ones.</p></li>
-<li><p>Repeat the process: This process continues, with more and more trees being added to fix the mistakes and improve the prediction.</p></li>
-</ol>
-<p>By combining all these models, XGBoost is able to make very accurate predictions. It also includes special techniques to prevent overfitting (where the model becomes too complex and performs poorly on new data).</p>
-<p>In short, XGBoost works like building a team of experts, where each new expert tries to fix what the previous ones got wrong, leading to a very strong final model.</p>
-</section>
-<section id="how-does-light-gbm-work" class="level3">
-<h3 class="anchored" data-anchor-id="how-does-light-gbm-work">How does Light GBM Work?</h3>
-<p>LightGBM (Light Gradient Boosting Machine) is a machine learning algorithm designed to help make predictions. Like XGBoost, it’s a boosting algorithm, which means it builds a series of smaller models and combines them to make a strong prediction.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="lgbm.jpg" class="img-fluid figure-img"></p>
-<figcaption>Light GBM</figcaption>
-</figure>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('news'); return false;">
+news
 </div>
-<p>Here’s a simple breakdown of how it works:</p>
-<ol type="1">
-<li><p>Start with a simple model: Just like XGBoost, LightGBM begins with a basic decision tree that makes its first predictions.</p></li>
-<li><p>Focus on the mistakes: After the first model makes predictions, LightGBM looks at the mistakes it made (where it was wrong) and tries to improve on those errors.</p></li>
-<li><p>Build more trees: Instead of building each new tree from scratch like other methods, LightGBM uses a clever technique called gradient boosting using leaf-wise tree growth to make the next tree focus specifically on fixing the errors. It builds trees one after another, but each tree focuses on the mistakes made by the previous one.</p></li>
-<li><p>Speed and efficiency: What makes LightGBM special is how fast and efficient it is. It’s designed to work well even with large datasets. It achieves this by grouping similar data together (using a technique called histogram-based learning) to speed up the process. This helps LightGBM train faster compared to other algorithms like XGBoost.</p></li>
-<li><p>Final prediction: Once several trees have been built, LightGBM combines their predictions to make the final, more accurate prediction.</p></li>
-<li><p>Prevents overfitting: LightGBM also includes techniques that help prevent the model from becoming too complex (this is called regularization), ensuring it works well on new, unseen data.</p></li>
-</ol>
-<p>LightGBM works by building a series of decision trees, where each new tree tries to correct the mistakes of the previous one. It’s designed to be fast and efficient, making it great for large datasets. The final prediction is a combination of all the trees’ outputs, and the algorithm also includes ways to prevent overfitting (making sure the model doesn’t become too complicated and perform poorly on new data).</p>
-</section>
-</section>
-<section id="whats-the-difference-between-xgboost-and-light-gbm" class="level2">
-<h2 class="anchored" data-anchor-id="whats-the-difference-between-xgboost-and-light-gbm">What’s the difference between XGBoost and Light GBM?</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="Leaf_vs_level.jpg" class="img-fluid figure-img"></p>
-<figcaption>Leaf-wise tree growth vs.&nbsp;Level-wise tree growth</figcaption>
-</figure>
+<div class="listing-category" onclick="window.quartoListingCategory('code'); return false;">
+code
 </div>
-<p>LightGBM and XGBoost are both popular gradient boosting machine learning methods used to make predictions, often in tasks like classification or regression. Like other ensemble methods they both work by combining many weak models to create a stronger one.</p>
-<p>The main difference between them is in how they work behind the scenes:</p>
-<ul>
-<li><p>LightGBM is designed to be faster and more efficient, especially when working with large datasets. It handles large amounts of data and many features better because it uses a technique that splits data differently (called “leaf-wise” growth). This makes it generally faster at training but sometimes slightly more prone to overfitting.</p></li>
-<li><p>XGBoost is known for being highly accurate and reliable. It uses a “level-wise” approach for growing decision trees, which is simpler and can sometimes be more stable than LightGBM’s method. While it might not be as fast as LightGBM, it is widely used in competitions and practical applications for its consistent performance.</p></li>
-</ul>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="lgb_Vs_xgboost_meme.jpg" class="img-fluid figure-img"></p>
-<figcaption>XG Boost vs.&nbsp;Light GBM</figcaption>
-</figure>
+<div class="listing-category" onclick="window.quartoListingCategory('data science'); return false;">
+data science
 </div>
-</section>
-<section id="so-which-is-better-light-gbm-or-xg-boost" class="level2">
-<h2 class="anchored" data-anchor-id="so-which-is-better-light-gbm-or-xg-boost">So which is better? Light GBM or XG Boost</h2>
-<p>LightGBM is faster and more scalable, making it ideal for huge datasets, while XGBoost is often the go-to for strong, reliable performance. Both are excellent tools, but the choice depends on the specific problem and data at hand.</p>
-<p>There isn’t a clear-cut answer to which one is better, as it depends on the specific problem you’re tackling. Both LightGBM and XGBoost are powerful and widely used, but they have strengths in different areas. LightGBM might be better if speed and scalability are your top priorities, while XGBoost might be the better choice if you need a more reliable model that balances speed with accuracy. The best approach is often to try both and see which one performs better for your specific dataset.</p>
-
-
-</section>
-
-</main> <!-- /main -->
+</div>
+<div class="listing-description">
+<a href="../Machine-Learning-Blog/posts/XGBoost_vs_LightGBM/index.html" class="no-external">XGBoost is a well-known term in the data science industry, and it’s currently the talk of the town. Anyone who’s dabbled in data science has likely heard of it, as it’s…</a>
+</div>
+</div>
+<div class="metadata">
+<a href="../Machine-Learning-Blog/posts/XGBoost_vs_LightGBM/index.html" class="no-external">
+<div class="listing-date">
+Jan 18, 2025
+</div>
+<div class="listing-author">
+Bryan Lee
+</div>
+</a>
+</div>
+</div>
+</div>
+<div class="listing-no-matching d-none">
+No matching items
+</div>
+</div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

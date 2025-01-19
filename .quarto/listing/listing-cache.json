@@ -2,6 +2,9 @@
   "listingMap": {
     "index.qmd": [
       "posts"
+    ],
+    "Machine-Learning-Blog\\index.qmd": [
+      "posts"
     ]
   }
 }

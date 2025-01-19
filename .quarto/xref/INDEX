@@ -13,5 +13,14 @@
   },
   "posts/XGBoost_vs_LightGBM/index.qmd": {
     "index.html": "0f67e980"
+  },
+  "Machine-Learning-Blog/about.qmd": {
+    "about.html": "992d7029"
+  },
+  "Machine-Learning-Blog/index.qmd": {
+    "index.html": "c367173b"
+  },
+  "Machine-Learning-Blog/posts/XGBoost_vs_LightGBM/index.qmd": {
+    "index.html": "397b5d0b"
   }
 }
